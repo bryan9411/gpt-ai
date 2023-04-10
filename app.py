@@ -3,18 +3,17 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from gpt import generate_response
+import os
 
 app = Flask(__name__)
 
 # 設置 Line Messaging API 的頻道存取令牌和 Webhook Handler
-line_bot_api = LineBotApi(
-    "T7Lm4kQzEy3jt2Uf/dB7AUwITDHHY1tChfYp65efd9DySUrLrOMBT8nQdJVUb3YOVJjpnTIIYur0XsUm1TmQYpzNeEqclG1wePv6XgAGZP8Tu0/sU7sKUWC34AB83hGlrmss0xo4aDKbTr9kMDyIMwdB04t89/1O/w1cDnyilFU="
-)
-handler = WebhookHandler("b912068c1233f34d65cfd7195e3f6be5")
+line_bot_api = LineBotApi(os.environ.get("CHANNEL_ACCESS_TOKEN"))
+handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 
 # 設置 ChatGPT API 的 API Key 和 endpoint
-openai_key = "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"
-openai_endpoint = "https://api.openai.com/v1/"
+openai_key = os.environ.get("OPENAI_API_KEY")
+openai_endpoint = "https://api.openai.com/v1/completions"
 
 
 @app.route("/callback", methods=["POST"])
