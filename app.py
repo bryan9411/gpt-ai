@@ -3,8 +3,10 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from gpt import generate_response
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 app = Flask(__name__)
 
 # 設置 Line Messaging API 的頻道存取令牌和 Webhook Handler
